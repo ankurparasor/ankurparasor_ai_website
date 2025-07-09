@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ankur Parasor - Photography</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #e0e0e0;
+            background: #121212;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: rgba(18, 18, 18, 0.95);
+            backdrop-filter: blur(20px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: #ffffff;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #b0b0b0;
+            font-weight: 400;
+            transition: color 0.2s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #1976d2;
+            transition: width 0.2s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 0;
+        }
+
+        .hero {
+            text-align: center;
+            color: white;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: #b0b0b0;
+            font-weight: 300;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #1976d2;
+            color: white;
+            padding: 16px 32px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.2s ease;
+            animation: fadeInUp 1s ease-out 0.4s both;
+            box-shadow: 0 2px 8px rgba(25, 118, 210, 0.3);
+        }
+
+        .cta-button:hover {
+            background: #1565c0;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(25, 118, 210, 0.4);
+        }
+
+        .gallery {
+            background: #1e1e1e;
+            padding: 120px 0;
+        }
+
+        .gallery h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 4rem;
+            color: #ffffff;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 24px;
+            margin-bottom: 3rem;
+        }
+
+        .photo-card {
+            background: #2d2d2d;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .photo-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .photo-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .photo-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+            color: white;
+            padding: 20px;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .photo-card:hover .photo-overlay {
+            transform: translateY(0);
+        }
+
+        .instagram-section {
+            background: #121212;
+            color: white;
+            padding: 120px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .instagram-section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 4rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .instagram-feed {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 3rem;
+        }
+
+        .instagram-post {
+            background: #2d2d2d;
+            border-radius: 8px;
+            height: 200px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .instagram-post:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+        }
+
+        .instagram-post img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .instagram-post:hover img {
+            transform: scale(1.1);
+        }
+
+        .instagram-link {
+            text-align: center;
+        }
+
+        .instagram-link a {
+            color: #1976d2;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 500;
+            background: rgba(25, 118, 210, 0.1);
+            padding: 16px 32px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            display: inline-block;
+            border: 1px solid rgba(25, 118, 210, 0.3);
+        }
+
+        .instagram-link a:hover {
+            background: rgba(25, 118, 210, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .contact {
+            background: #1e1e1e;
+            color: white;
+            padding: 120px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .contact h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 4rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .contact-content {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-content p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            color: #b0b0b0;
+            font-weight: 300;
+        }
+
+        .email-link {
+            font-size: 1.3rem;
+            color: #1976d2;
+            text-decoration: none;
+            transition: color 0.2s ease;
+            font-weight: 500;
+            background: rgba(25, 118, 210, 0.1);
+            padding: 12px 24px;
+            border-radius: 4px;
+            display: inline-block;
+            border: 1px solid rgba(25, 118, 210, 0.3);
+        }
+
+        .email-link:hover {
+            color: #1565c0;
+            background: rgba(25, 118, 210, 0.2);
+            transform: translateY(-2px);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .photo-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .instagram-feed {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">Ankur Parasor</div>
+            <ul class="nav-links">
+                <li><a href="#home" onclick="scrollToSection('home')">Home</a></li>
+                <li><a href="#gallery" onclick="scrollToSection('gallery')">Gallery</a></li>
+                <li><a href="#instagram" onclick="scrollToSection('instagram')">Instagram</a></li>
+                <li><a href="#contact" onclick="scrollToSection('contact')">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home" class="section hero">
+        <div class="container">
+            <h1>Ankur Parasor</h1>
+            <p>Capturing moments, creating memories</p>
+            <a href="#gallery" class="cta-button" onclick="scrollToSection('gallery')">View My Work</a>
+        </div>
+    </section>
+
+    <section id="gallery" class="section gallery">
+        <div class="container">
+            <h2>Featured Photography</h2>
+            <div class="photo-grid">
+                <div class="photo-card">
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Mountain landscape at sunset">
+                    <div class="photo-overlay">
+                        <h3>Mountain Sunset</h3>
+                        <p>Golden hour in the peaks</p>
+                    </div>
+                </div>
+                <div class="photo-card">
+                    <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Forest path with sunlight">
+                    <div class="photo-overlay">
+                        <h3>Forest Path</h3>
+                        <p>Light through the canopy</p>
+                    </div>
+                </div>
+                <div class="photo-card">
+                    <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Lake reflection with mountains">
+                    <div class="photo-overlay">
+                        <h3>Lake Reflection</h3>
+                        <p>Mirror of the mountains</p>
+                    </div>
+                </div>
+                <div class="photo-card">
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Urban architecture">
+                    <div class="photo-overlay">
+                        <h3>Urban Lines</h3>
+                        <p>Architectural geometry</p>
+                    </div>
+                </div>
+                <div class="photo-card">
+                    <img src="https://images.unsplash.com/photo-1418065460487-3956ef6c51bc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Ocean waves at golden hour">
+                    <div class="photo-overlay">
+                        <h3>Ocean Waves</h3>
+                        <p>Endless blue horizon</p>
+                    </div>
+                </div>
+                <div class="photo-card">
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Night sky with stars">
+                    <div class="photo-overlay">
+                        <h3>Night Sky</h3>
+                        <p>Stars and silence</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="instagram" class="section instagram-section">
+        <div class="container">
+            <h2>Follow My Journey</h2>
+            <div class="instagram-feed">
+                <div class="instagram-post">
+                    <img src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Instagram post 1">
+                </div>
+                <div class="instagram-post">
+                    <img src="https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Instagram post 2">
+                </div>
+                <div class="instagram-post">
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Instagram post 3">
+                </div>
+                <div class="instagram-post">
+                    <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Instagram post 4">
+                </div>
+                <div class="instagram-post">
+                    <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Instagram post 5">
+                </div>
+                <div class="instagram-post">
+                    <img src="https://images.unsplash.com/photo-1418065460487-3956ef6c51bc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Instagram post 6">
+                </div>
+            </div>
+            <div class="instagram-link">
+                <a href="https://instagram.com/ankurparasor" target="_blank">@ankurparasor</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section contact">
+        <div class="container">
+            <h2>Get In Touch</h2>
+            <div class="contact-content">
+                <p>Interested in working together? I'd love to hear from you!</p>
+                <p>Whether it's for a photo shoot, collaboration, or just to say hello, feel free to reach out.</p>
+                <a href="mailto:ankur.parasor@example.com" class="email-link">ankur.parasor@example.com</a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        // Add smooth scrolling animation on page load
+        window.addEventListener('load', function() {
+            const cards = document.querySelectorAll('.photo-card, .instagram-post');
+            cards.forEach((card, index) => {
+                card.style.animation = `fadeInUp 0.6s ease-out ${index * 0.1}s both`;
+            });
+        });
+
+        // Add parallax effect to hero section
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+        });
+    </script>
+</body>
+</html>
